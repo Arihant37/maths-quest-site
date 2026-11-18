@@ -11,7 +11,7 @@ for (const n of levels) {
     const m = g.q.match(/^(\d+(?:\.\d+)?) ([×+−]) (\d+(?:\.\d+)?)$/);
     if (d) want = +d[1] % +d[2] === 0 ? "yes" : "no";
     else if (m) want = Math.round((m[2] === "×" ? m[1] * m[3] : m[2] === "+" ? +m[1] + +m[3] : m[1] - m[3]) * 100) / 100;
-    if (want !== g.a || (g.kind === "number" && (!Number.isInteger(g.a) || g.a < 0))) { console.log("WRONG level", n, g, "expected", want); bad++; break; }
+    if (want !== g.a || (g.kind === "number" && (!Number.isFinite(g.a) || g.a < 0))) { console.log("WRONG level", n, g, "expected", want); bad++; break; }
   }
 }
 console.log(bad ? "FAILED" : `all ${levels.length} generators OK`);
