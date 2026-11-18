@@ -11,6 +11,7 @@ import json
 import re
 import subprocess
 import sys
+from decimal import Decimal
 from pathlib import Path
 
 import imageio_ffmpeg
@@ -25,27 +26,33 @@ def mission(scenes):
     if not scene:
         return None
     text = " ".join("".join(p["s"] for p in row) for row in scene["rows"])
-    m = re.search(r"(\d+)\s*([×x*−+÷/-])\s*(\d+)", text)
+    m = re.search(r"(\d+(?:\.\d+)?)\s*([×x*−+÷/-])\s*(\d+(?:\.\d+)?)", text)  # decimals allowed: "100 − 28.43" must not read as "100 − 28"
     if not m:
         return None
-    a, op, b = int(m[1]), m[2], int(m[3])
+    a, op, b = Decimal(m[1]), m[2], Decimal(m[3])
+
+    def show(d):
+        return format(d.normalize(), "f")  # 71.570 -> 71.57, 3.8E+2 -> 380
+
     if op in "×x*":
-        return f"{a} × {b}", "number", a * b
+        return f"{show(a)} × {show(b)}", "number", show(a * b)
     if op == "+":
-        return f"{a} + {b}", "number", a + b
+        return f"{show(a)} + {show(b)}", "number", show(a + b)
     if op in "−-":
-        return f"{a} − {b}", "number", a - b
+        return f"{show(a)} − {show(b)}", "number", show(a - b)
     if op in "÷/":
-        return f"Is {a} divisible by {b}?", "yesno", "yes" if a % b == 0 else "no"
+        return f"Is {show(a)} divisible by {show(b)}?", "yesno", "yes" if a % b == 0 else "no"
 
 
 def digest(level, answer):
     return hashlib.sha256(f"{level}:{answer}".encode()).hexdigest()
 
 
-assert mission([{"text": "Your mission: find 72 times 11", "rows": [[{"s": "MISSION"}], [{"s": "72×11 = ?"}]]}]) == ("72 × 11", "number", 792)
+assert mission([{"text": "Your mission: find 72 times 11", "rows": [[{"s": "MISSION"}], [{"s": "72×11 = ?"}]]}]) == ("72 × 11", "number", "792")
 assert mission([{"text": "mission", "rows": [[{"s": "5373÷9?"}]]}]) == ("Is 5373 divisible by 9?", "yesno", "yes")
-assert mission([{"text": "mission", "rows": [[{"s": "1000 −620 =?"}]]}]) == ("1000 − 620", "number", 380)
+assert mission([{"text": "mission", "rows": [[{"s": "1000 −620 =?"}]]}]) == ("1000 − 620", "number", "380")
+assert mission([{"text": "mission", "rows": [[{"s": "100−28.43 = ?"}]]}]) == ("100 − 28.43", "number", "71.57")
+assert mission([{"text": "mission", "rows": [[{"s": "72×11 = ?"}]]}]) == ("72 × 11", "number", "792")
 
 
 def main(force=()):

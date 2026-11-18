@@ -17,6 +17,7 @@ const GEN = {
   8: () => sub(10000, ri(1001, 9999)),
   9: () => sub(1000, ri(11, 99) * 10),
   10: () => { const k = ri(2, 9); return sub(k * 1000, ri(1000, k * 1000 - 1)); },
+  11: () => { const n = ri(1001, 9999); return { q: `100 − ${(n / 100).toFixed(2)}`, a: (10000 - n) / 100, kind: "number" }; }, // money change with decimals
   12: () => { let a; do a = ri(41, 99); while (a % 10 === 9); let b; do b = ri(11, a - 1); while (b % 10 <= a % 10); return sub(a, b); }, // a must not end in 9, or no b could need borrowing
   13: () => { const n = 10 * ri(1, 9) + 5; return mul(n, n); },
   14: () => { const n = 100 * ri(1, 2) + 10 * ri(0, 9) + 5; return mul(n, n); },

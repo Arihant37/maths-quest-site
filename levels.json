@@ -142,6 +142,20 @@
    }
   },
   {
+   "level": 11,
+   "world": "All From Nine",
+   "world_no": 2,
+   "title": "Fast ₹100 Change Trick with Decimals",
+   "lesson": "Money change from 100 rupees: decimals with all from 9 (100 - 34.65)",
+   "video": "v/mq-level-11.mp4",
+   "seconds": 53,
+   "mission": {
+    "label": "100 − 28.43",
+    "kind": "number",
+    "hash": "cb8b84fb29b0c95c3ddbd37ee0f2f4c701dfb5cb659ccb267c5abbc2dfb688da"
+   }
+  },
+  {
    "level": 12,
    "world": "All From Nine",
    "world_no": 2,
