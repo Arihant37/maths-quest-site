@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maths Quest</title>
+<style>
+  :root { --bg:#0a1030; --panel:#101a48; --line:#1d2c6b; --text:#e8ecff; --muted:#9aa7e0; --cyan:#35e6ff; --yellow:#ffe24d; --pink:#ff5fc8; --green:#4dff9a; --red:#ff6b81; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:radial-gradient(circle at 50% -10%, #1b2a7a, var(--bg) 55%); color:var(--text); font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; min-height:100vh; }
+  main { max-width:880px; margin:0 auto; padding:20px 16px 60px; }
+  h1 { margin:0; font-size:30px; color:var(--cyan); text-shadow:0 0 14px #35e6ff88; letter-spacing:.5px; }
+  h2 { margin:28px 0 10px; font-size:18px; color:var(--yellow); }
+  .top { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; justify-content:space-between; }
+  .sub { color:var(--muted); margin:2px 0 0; }
+  .bar { height:10px; background:var(--panel); border:1px solid var(--line); border-radius:99px; overflow:hidden; margin:14px 0 4px; }
+  .bar i { display:block; height:100%; background:linear-gradient(90deg,var(--cyan),var(--pink)); width:0; transition:width .4s; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:10px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:12px; cursor:pointer; text-align:left; color:inherit; font:inherit; position:relative; }
+  .card:hover { border-color:var(--cyan); }
+  .card b { display:block; font-size:22px; color:var(--cyan); }
+  .card span { display:block; font-size:13px; color:var(--muted); line-height:1.3; margin-top:2px; }
+  .card.done { border-color:var(--green); }
+  .card.done::after { content:"\2713"; position:absolute; top:8px; right:10px; color:var(--green); font-weight:700; }
+  .card.locked { opacity:.45; cursor:not-allowed; }
+  .card.soon { opacity:.35; cursor:default; border-style:dashed; }
+  video { width:100%; max-height:76vh; background:#000; border-radius:14px; border:1px solid var(--line); }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px; margin:14px 0; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; }
+  input { flex:1 1 150px; min-width:0; font:inherit; font-size:20px; padding:10px 12px; border-radius:10px; border:1px solid var(--line); background:#08102e; color:var(--text); }
+  button.go, .btn { font:inherit; font-weight:700; padding:10px 18px; border-radius:10px; border:0; background:var(--cyan); color:#001; cursor:pointer; }
+  .btn.alt { background:transparent; color:var(--cyan); border:1px solid var(--cyan); }
+  .msg { margin-top:10px; min-height:24px; font-weight:600; }
+  .ok { color:var(--green); } .no { color:var(--red); }
+  label.sw { color:var(--muted); font-size:14px; display:flex; gap:8px; align-items:center; cursor:pointer; }
+  a { color:var(--cyan); }
+  .nav { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+const KEY = "maths-quest-v1";
+let data = null;
+let state = { done: {}, lock: false };
+try { state = Object.assign(state, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+const $ = (h) => { const t = document.createElement("template"); t.innerHTML = h.trim(); return t.content.firstChild; };
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const sha = async (s) => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)))].map((b) => b.toString(16).padStart(2, "0")).join("");
+const unlocked = (n) => !state.lock || n === 1 || state.done[n - 1] || !data.levels.some((l) => l.level === n - 1);
+
+function home() {
+  const app = document.getElementById("app");
+  const solved = data.levels.filter((l) => state.done[l.level]).length;
+  app.innerHTML = "";
+  app.append($(`<div class="top"><div><h1>Maths Quest</h1><p class="sub">Vedic maths tricks as a game. Watch, then beat the mission.</p></div>
+    <label class="sw"><input type="checkbox" id="lock" ${state.lock ? "checked" : ""} style="flex:none;width:auto"> Game mode: unlock levels one by one</label></div>`));
+  app.append($(`<div><div class="bar"><i style="width:${(solved / data.total) * 100}%"></i></div><p class="sub">${solved} missions solved &middot; ${data.levels.length} levels open &middot; ${data.total - data.levels.length} more coming</p></div>`));
+  app.querySelector("#lock").onchange = (e) => { state.lock = e.target.checked; save(); home(); };
+  const worlds = [...new Set(data.levels.map((l) => l.world_no))];
+  for (const w of worlds) {
+    const ls = data.levels.filter((l) => l.world_no === w);
+    app.append($(`<h2>World ${w}: ${esc(ls[0].world)}</h2>`));
+    const g = $(`<div class="grid"></div>`);
+    for (const l of ls) {
+      const c = $(`<button class="card ${state.done[l.level] ? "done" : ""} ${unlocked(l.level) ? "" : "locked"}"><b>${l.level}</b><span>${esc(l.title)}</span></button>`);
+      c.onclick = () => unlocked(l.level) && (location.hash = "#L" + l.level);
+      g.append(c);
+    }
+    app.append(g);
+  }
+}
+
+function level(n) {
+  const l = data.levels.find((x) => x.level === n);
+  if (!l) return (location.hash = "");
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+  app.append($(`<p><a href="#">&larr; All levels</a></p>`));
+  app.append($(`<h1>Level ${l.level}</h1>`));
+  app.append($(`<p class="sub">World ${l.world_no}: ${esc(l.world)}</p>`));
+  app.append($(`<video src="${l.video}" controls playsinline preload="metadata"></video>`));
+  app.append($(`<div class="panel"><b>The trick</b><br>${esc(l.lesson)}</div>`));
+  const m = l.mission;
+  const box = $(`<div class="panel"><b>Your mission</b>
+    <p style="font-size:24px;margin:8px 0;color:var(--yellow)">${m ? esc(m.label) + (m.kind === "number" ? " = ?" : "") : "Comment your answer under the video."}</p>
+    ${m ? (m.kind === "yesno"
+      ? `<div class="row"><button class="go" data-a="yes">Yes</button><button class="go" data-a="no">No</button></div>`
+      : `<div class="row"><input id="ans" inputmode="numeric" placeholder="Your answer" autocomplete="off"><button class="go" id="chk">Check</button></div>`) : ""}
+    <div class="msg" id="msg">${state.done[l.level] ? '<span class="ok">Solved already. Well done!</span>' : ""}</div></div>`);
+  app.append(box);
+  const say = (ok, t) => { box.querySelector("#msg").innerHTML = `<span class="${ok ? "ok" : "no"}">${t}</span>`; };
+  const check = async (raw) => {
+    const v = String(raw).trim().toLowerCase().replace(/[ ,]/g, "");
+    if (!v) return;
+    if (await sha(l.level + ":" + v) === m.hash) {
+      state.done[l.level] = true; save(); say(true, "Correct! Mission solved. Go to the next level.");
+    } else say(false, "Not yet. Watch the trick again and try once more.");
+  };
+  if (m && m.kind === "number") { box.querySelector("#chk").onclick = () => check(box.querySelector("#ans").value); box.querySelector("#ans").onkeydown = (e) => e.key === "Enter" && check(e.target.value); }
+  if (m && m.kind === "yesno") box.querySelectorAll("button[data-a]").forEach((b) => (b.onclick = () => check(b.dataset.a)));
+  if (!m) { const d = $(`<button class="btn alt">Mark as done</button>`); d.onclick = () => { state.done[l.level] = true; save(); say(true, "Marked as done."); }; box.append(d); }
+  const prev = data.levels.find((x) => x.level === n - 1), next = data.levels.find((x) => x.level === n + 1);
+  app.append($(`<div class="nav">${prev ? `<a class="btn alt" href="#L${prev.level}">&larr; Level ${prev.level}</a>` : "<span></span>"}${next ? `<a class="btn" href="#L${next.level}">Level ${next.level} &rarr;</a>` : ""}</div>`));
+  window.scrollTo(0, 0);
+}
+
+function route() {
+  const m = location.hash.match(/^#L(\d+)$/);
+  m ? level(+m[1]) : home();
+}
+fetch("levels.json").then((r) => r.json()).then((d) => { data = d; route(); window.onhashchange = route; })
+  .catch(() => (document.getElementById("app").textContent = "Could not load the levels. Please refresh."));
+</script>
+</body>
+</html>
