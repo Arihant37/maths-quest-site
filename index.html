@@ -101,7 +101,7 @@ function level(n) {
       state.done[l.level] = true; save(); say(true, "Correct! Mission solved. Go to the next level.");
     } else say(false, "Not yet. Watch the trick again and try once more.");
   };
-  if (m && m.kind === "number") { box.querySelector("#chk").onclick = () => check(box.querySelector("#ans").value); box.querySelector("#ans").onkeydown = (e) => e.key === "Enter" && check(e.target.value); }
+  if (m && m.kind === "number") { box.querySelector("#chk").onclick = () => check(box.querySelector("#ans").value); box.querySelector("#ans").addEventListener("keydown", (e) => { if (e.key === "Enter") check(e.target.value); }); } // never return false from a keydown handler: it blocks typing
   if (m && m.kind === "yesno") box.querySelectorAll("button[data-a]").forEach((b) => (b.onclick = () => check(b.dataset.a)));
   if (!m) { const d = $(`<button class="btn alt">Mark as done</button>`); d.onclick = () => { state.done[l.level] = true; save(); say(true, "Marked as done."); }; box.append(d); }
   if (GEN[l.level]) {
@@ -155,7 +155,7 @@ function practice(ids, total) {
       box.append(nx);
     };
     const chk = box.querySelector("#chk"), ans = box.querySelector("#ans");
-    if (chk) { chk.onclick = () => submit(ans.value); ans.onkeydown = (e) => e.key === "Enter" && submit(ans.value); ans.focus(); }
+    if (chk) { chk.onclick = () => submit(ans.value); ans.addEventListener("keydown", (e) => { if (e.key === "Enter") submit(ans.value); }); ans.focus(); }
     box.querySelectorAll("button[data-a]").forEach((b) => (b.onclick = () => submit(b.dataset.a)));
   };
   const pick = () => { const lv = ids[Math.floor(Math.random() * ids.length)]; cur = Object.assign({ level: lv }, GEN[lv]()); draw(); };
