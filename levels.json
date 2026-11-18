@@ -1,0 +1,481 @@
+{
+ "total": 100,
+ "levels": [
+  {
+   "level": 1,
+   "world": "Speed Starters",
+   "world_no": 1,
+   "title": "Multiply Any 2-Digit Number by 11 in 2 Seconds!",
+   "lesson": "Multiply any two-digit number by 11",
+   "video": "v/mq-level-01.mp4",
+   "seconds": 48,
+   "mission": {
+    "label": "72 × 11",
+    "kind": "number",
+    "hash": "9c1efbe3036821a33c4342214e281ea298ddc4b21f9cf6a001aab45737fe9751"
+   }
+  },
+  {
+   "level": 2,
+   "world": "Speed Starters",
+   "world_no": 1,
+   "title": "Multiply Even Numbers by 5 in 2 Seconds!",
+   "lesson": "Multiply any even number by 5: halve it then add zero (64 x 5)",
+   "video": "v/mq-level-02.mp4",
+   "seconds": 43,
+   "mission": {
+    "label": "86 × 5",
+    "kind": "number",
+    "hash": "8ffda338b7e36ffd321cab87daa58dbe9992088dbd6be47eac63581160fbabc6"
+   }
+  },
+  {
+   "level": 3,
+   "world": "Speed Starters",
+   "world_no": 1,
+   "title": "Multiply Any Odd Number by 5 in 2 Seconds!",
+   "lesson": "Multiply any odd number by 5: halve it, then slide the decimal point one place right (47 x 5)",
+   "video": "v/mq-level-03.mp4",
+   "seconds": 51,
+   "mission": {
+    "label": "63 × 5",
+    "kind": "number",
+    "hash": "fa3ea6e7259d0a965f369a15802b4fa374e10e846a8e07d0b0254d1a859a72c8"
+   }
+  },
+  {
+   "level": 4,
+   "world": "Speed Starters",
+   "world_no": 1,
+   "title": "Multiply by 9 in 3 Seconds!",
+   "lesson": "Multiply by 9: multiply by 10 and subtract the number (38 x 9)",
+   "video": "v/mq-level-04.mp4",
+   "seconds": 56,
+   "mission": {
+    "label": "72 × 9",
+    "kind": "number",
+    "hash": "b680ec9fc0250cd58fbcd05aa8ac971d541b28b04268c80bdd5ca15219d8ac9f"
+   }
+  },
+  {
+   "level": 5,
+   "world": "Speed Starters",
+   "world_no": 1,
+   "title": "Multiply by 25 in 2 Seconds!",
+   "lesson": "Multiply by 25: divide by 4 then times 100 (48 x 25)",
+   "video": "v/mq-level-05.mp4",
+   "seconds": 46,
+   "mission": {
+    "label": "64 × 25",
+    "kind": "number",
+    "hash": "524785b1925bc4679ceaeb30710755da0721072ad1da668a705cc21c4c8f3e6d"
+   }
+  },
+  {
+   "level": 6,
+   "world": "Speed Starters",
+   "world_no": 1,
+   "title": "Add Fast by Rounding Up to 10!",
+   "lesson": "Fast addition by rounding up to a multiple of 10 (48 + 37)",
+   "video": "v/mq-level-06.mp4",
+   "seconds": 44,
+   "mission": {
+    "label": "68 + 45",
+    "kind": "number",
+    "hash": "4b95c0e68426f769f70644cf0e5814bfbec6692159baff4ad82dc067a2516473"
+   }
+  },
+  {
+   "level": 7,
+   "world": "All From Nine",
+   "world_no": 2,
+   "title": "Subtract From 1000 in 3 Seconds!",
+   "lesson": "Subtract from 1000: all from 9 and last from 10 (1000 - 364)",
+   "video": "v/mq-level-07.mp4",
+   "seconds": 58,
+   "mission": {
+    "label": "1000 − 482",
+    "kind": "number",
+    "hash": "68fa33c46675ae417d231b299825c036fd1bbb94afaec711f895718fbffdbe2c"
+   }
+  },
+  {
+   "level": 8,
+   "world": "All From Nine",
+   "world_no": 2,
+   "title": "Subtract From 10000 in 3 Seconds!",
+   "lesson": "Subtract from 10000: all from 9 and last from 10 (10000 - 4287)",
+   "video": "v/mq-level-08.mp4",
+   "seconds": 53,
+   "mission": {
+    "label": "10000 − 2746",
+    "kind": "number",
+    "hash": "deaf529647e5825cef8be5156104f65a2a6b0e4fe749da27692e2bd6d46fba00"
+   }
+  },
+  {
+   "level": 9,
+   "world": "All From Nine",
+   "world_no": 2,
+   "title": "Subtract From 1000 With Zeros Trick",
+   "lesson": "Subtract from base 1000 with trailing zeros (1000 - 470)",
+   "video": "v/mq-level-09.mp4",
+   "seconds": 46,
+   "mission": {
+    "label": "1000 − 620",
+    "kind": "number",
+    "hash": "b568d91f96029eb182346df34b2f9444f88c3778f55a9c1619e503a5d7f42d9a"
+   }
+  },
+  {
+   "level": 10,
+   "world": "All From Nine",
+   "world_no": 2,
+   "title": "Subtract From 4000 in Seconds!",
+   "lesson": "Subtract from multiple of 1000 (4000 - 1632)",
+   "video": "v/mq-level-10.mp4",
+   "seconds": 62,
+   "mission": {
+    "label": "5000 − 1724",
+    "kind": "number",
+    "hash": "358744e8905a433b230ff814d05b8ef679573d3d930d9a1938e83cc194371d15"
+   }
+  },
+  {
+   "level": 12,
+   "world": "All From Nine",
+   "world_no": 2,
+   "title": "Subtract Without Borrowing! Bar Numbers Trick",
+   "lesson": "Column subtraction with bar numbers (vinculum) (72 - 38)",
+   "video": "v/mq-level-12.mp4",
+   "seconds": 58,
+   "mission": {
+    "label": "63 − 28",
+    "kind": "number",
+    "hash": "9086cb0652bad6409fff149e7ec1a587bb373b4843310e2d4efd13fea7e21b15"
+   }
+  },
+  {
+   "level": 13,
+   "world": "Square Kingdom",
+   "world_no": 3,
+   "title": "Square Numbers Ending in 5 in 3 Seconds!",
+   "lesson": "Square a two-digit number ending in 5 (35 x 35)",
+   "video": "v/mq-level-13.mp4",
+   "seconds": 60,
+   "mission": {
+    "label": "85 × 85",
+    "kind": "number",
+    "hash": "43f8c69d2b679b0104773ee8918cf533c83e3f4169146096372787ad41c98d5e"
+   }
+  },
+  {
+   "level": 14,
+   "world": "Square Kingdom",
+   "world_no": 3,
+   "title": "Square Any 3-Digit Number Ending in 5",
+   "lesson": "Square a three-digit number ending in 5 (105 x 105)",
+   "video": "v/mq-level-14.mp4",
+   "seconds": 49,
+   "mission": {
+    "label": "115 × 115",
+    "kind": "number",
+    "hash": "ab57bb9ee6a5355dda1d78b9a4bedb4f0e46534ee450b871a2e43722945c9eb8"
+   }
+  },
+  {
+   "level": 15,
+   "world": "Square Kingdom",
+   "world_no": 3,
+   "title": "Square 53×53 in 3 Seconds!",
+   "lesson": "Square a number just above 50 (53 x 53)",
+   "video": "v/mq-level-15.mp4",
+   "seconds": 53,
+   "mission": {
+    "label": "57 × 57",
+    "kind": "number",
+    "hash": "8b972c996cdb880d8bce3cd8b66de64ec7d6dd3d6ba4d5f3ac8233e01492faf5"
+   }
+  },
+  {
+   "level": 16,
+   "world": "Square Kingdom",
+   "world_no": 3,
+   "title": "Square Numbers Below 50 in 3 Seconds!",
+   "lesson": "Square a number just below 50 (47 x 47)",
+   "video": "v/mq-level-16.mp4",
+   "seconds": 62,
+   "mission": {
+    "label": "44 × 44",
+    "kind": "number",
+    "hash": "6343473c641fb2351209cbb927f58680b3b67105719275bc8fd47a775957ec44"
+   }
+  },
+  {
+   "level": 17,
+   "world": "Square Kingdom",
+   "world_no": 3,
+   "title": "Square Numbers Above 100 in 3 Seconds!",
+   "lesson": "Square a number just above 100 using deficiency (104 x 104)",
+   "video": "v/mq-level-17.mp4",
+   "seconds": 56,
+   "mission": {
+    "label": "108 × 108",
+    "kind": "number",
+    "hash": "0d5ea50cbe9f4a560729a1d8e19d98375ed6dd52b9e04ab1a6dc1039b1eafa20"
+   }
+  },
+  {
+   "level": 22,
+   "world": "Base Camp",
+   "world_no": 4,
+   "title": "Multiply Numbers Near 100 in Seconds! (104 × 97)",
+   "lesson": "Multiply numbers on opposite sides of 100 (104 x 97)",
+   "video": "v/mq-level-22.mp4",
+   "seconds": 59,
+   "mission": {
+    "label": "107 × 95",
+    "kind": "number",
+    "hash": "0e38e4e541ff9a253a118467d9fc7aa01de26808ccc73d7f402840baf9114334"
+   }
+  },
+  {
+   "level": 23,
+   "world": "Base Camp",
+   "world_no": 4,
+   "title": "Multiply Numbers Below 1000 in Seconds!",
+   "lesson": "Multiply two numbers just below 1000 (996 x 992)",
+   "video": "v/mq-level-23.mp4",
+   "seconds": 66,
+   "mission": {
+    "label": "994 × 993",
+    "kind": "number",
+    "hash": "60cc2a3b0ff88ec5f5f72a482608b8308d6fe38acacfd11c081263c1e54b3e05"
+   }
+  },
+  {
+   "level": 24,
+   "world": "Base Camp",
+   "world_no": 4,
+   "title": "Multiply Numbers Above 1000 in 3 Seconds!",
+   "lesson": "Multiply two numbers just above 1000 (1005 x 1007)",
+   "video": "v/mq-level-24.mp4",
+   "seconds": 56,
+   "mission": {
+    "label": "1008 × 1006",
+    "kind": "number",
+    "hash": "f48fa13fc64288de6a2508d284555d14b9755725e3af8c7386b1dc639a6140ab"
+   }
+  },
+  {
+   "level": 25,
+   "world": "Base Camp",
+   "world_no": 4,
+   "title": "Multiply Near 50 in 3 Seconds!",
+   "lesson": "Multiply numbers near sub-base 50 (48 x 54)",
+   "video": "v/mq-level-25.mp4",
+   "seconds": 57,
+   "mission": {
+    "label": "47 × 55",
+    "kind": "number",
+    "hash": "b087b1f0a97825398bbd3bb8e1c2ca0ae686c54a30c01447c8c345f7d735eb37"
+   }
+  },
+  {
+   "level": 26,
+   "world": "Base Camp",
+   "world_no": 4,
+   "title": "Multiply Near 200 in 3 Seconds!",
+   "lesson": "Multiply numbers near sub-base 200 (203 x 205)",
+   "video": "v/mq-level-26.mp4",
+   "seconds": 53,
+   "mission": {
+    "label": "206 × 207",
+    "kind": "number",
+    "hash": "750971d807d2800da9ce1daf7a358892f4035728cfe42172344079628be9e8db"
+   }
+  },
+  {
+   "level": 27,
+   "world": "Special Multipliers",
+   "world_no": 5,
+   "title": "Multiply 43 × 47 in 3 Seconds!",
+   "lesson": "Same tens digit and units add to 10 (43 x 47)",
+   "video": "v/mq-level-27.mp4",
+   "seconds": 52,
+   "mission": {
+    "label": "82 × 88",
+    "kind": "number",
+    "hash": "5909adb706e0fe2ea2e043e3bdc1a842d3beb9bae0a8539dedc460db24e2df56"
+   }
+  },
+  {
+   "level": 28,
+   "world": "Special Multipliers",
+   "world_no": 5,
+   "title": "82 × 88 in 3 Seconds!",
+   "lesson": "Same tens digit 8 and units add to 10 (82 x 88)",
+   "video": "v/mq-level-28.mp4",
+   "seconds": 51,
+   "mission": {
+    "label": "84 × 86",
+    "kind": "number",
+    "hash": "d5e3c53fe6ed93bebdf62bb83758b3451b8a287b75eab7aea1d5e8ecbe3e17f9"
+   }
+  },
+  {
+   "level": 29,
+   "world": "Special Multipliers",
+   "world_no": 5,
+   "title": "114 × 116 in 3 Seconds! Special Multipliers Trick",
+   "lesson": "Same first two digits and units add to 10 (114 x 116)",
+   "video": "v/mq-level-29.mp4",
+   "seconds": 55,
+   "mission": {
+    "label": "122 × 128",
+    "kind": "number",
+    "hash": "c42165c89fd26159aa9a545af050e074f79d1482aaa75bdfdb8bc53c04301b97"
+   }
+  },
+  {
+   "level": 30,
+   "world": "Special Multipliers",
+   "world_no": 5,
+   "title": "Multiply 37×77 in 3 Seconds!",
+   "lesson": "Units digits same and tens digits add to 10 (37 x 77)",
+   "video": "v/mq-level-30.mp4",
+   "seconds": 53,
+   "mission": {
+    "label": "28 × 88",
+    "kind": "number",
+    "hash": "a507c87983feea269805b99dd7671101619edce9f286b0024a3a8cd068fb56b7"
+   }
+  },
+  {
+   "level": 31,
+   "world": "Special Multipliers",
+   "world_no": 5,
+   "title": "Multiply by 99 in 3 Seconds!",
+   "lesson": "Multiply two-digit number by equal 9s (43 x 99)",
+   "video": "v/mq-level-31.mp4",
+   "seconds": 53,
+   "mission": {
+    "label": "74 × 99",
+    "kind": "number",
+    "hash": "36e05b02b9eea3945bf27c4e17c7d973ad1e14e462c4798a47919ad12c3dd8df"
+   }
+  },
+  {
+   "level": 32,
+   "world": "Special Multipliers",
+   "world_no": 5,
+   "title": "Multiply Any 3-Digit Number by 999 in Seconds!",
+   "lesson": "Multiply three-digit number by 999 (358 x 999)",
+   "video": "v/mq-level-32.mp4",
+   "seconds": 54,
+   "mission": {
+    "label": "714 × 999",
+    "kind": "number",
+    "hash": "9ae0cc86e316daef150f1ea529a66333d0e45939c0469c811e0ea9d8707794d1"
+   }
+  },
+  {
+   "level": 34,
+   "world": "Crosswise Castle",
+   "world_no": 6,
+   "title": "Multiply 2-Digit Numbers Fast!",
+   "lesson": "Multiply two-digit by two-digit without carry (21 x 32)",
+   "video": "v/mq-level-34.mp4",
+   "seconds": 59,
+   "mission": {
+    "label": "23 × 12",
+    "kind": "number",
+    "hash": "d13f9be78724bf5743bc0e8a11332c4c25237fe7021bdeec66f9e27498be293a"
+   }
+  },
+  {
+   "level": 35,
+   "world": "Crosswise Castle",
+   "world_no": 6,
+   "title": "Fast 2-Digit Crosswise Multiply",
+   "lesson": "Multiply two-digit by two-digit with single carry (34 x 23)",
+   "video": "v/mq-level-35.mp4",
+   "seconds": 59,
+   "mission": {
+    "label": "42 × 23",
+    "kind": "number",
+    "hash": "9b52c5acae5d4ee16f9b67633c265a626a34198bfe28c4d3bbbc6707817a6e03"
+   }
+  },
+  {
+   "level": 36,
+   "world": "Crosswise Castle",
+   "world_no": 6,
+   "title": "Crosswise Castle: Multiply 67 × 48 Fast!",
+   "lesson": "Multiply two-digit by two-digit with multiple carries (67 x 48)",
+   "video": "v/mq-level-36.mp4",
+   "seconds": 73,
+   "mission": {
+    "label": "79 × 56",
+    "kind": "number",
+    "hash": "63402b6a0addbfb6d98430a6e092eee470cf894c7c27d22935cc2a2a21f0fd8b"
+   }
+  },
+  {
+   "level": 37,
+   "world": "Crosswise Castle",
+   "world_no": 6,
+   "title": "Multiply 3-Digit by 2-Digit Fast! Crosswise Trick",
+   "lesson": "Multiply three-digit by two-digit using crosswise (123 x 32)",
+   "video": "v/mq-level-37.mp4",
+   "seconds": 57,
+   "mission": {
+    "label": "214 × 12",
+    "kind": "number",
+    "hash": "9ae4bd3f3e0f2240c348840e351d52a9f7e01c1cd9eb1802fe9284ccfaf6e948"
+   }
+  },
+  {
+   "level": 38,
+   "world": "Crosswise Castle",
+   "world_no": 6,
+   "title": "Multiply 3-Digit Numbers in 5 Cross Steps!",
+   "lesson": "Multiply three-digit by three-digit in five cross steps (123 x 213)",
+   "video": "v/mq-level-38.mp4",
+   "seconds": 69,
+   "mission": {
+    "label": "214 × 121",
+    "kind": "number",
+    "hash": "920bcbda96dc6813f047c5bf76d21159f7551874f68259fe0b2c4f0260fb6d1d"
+   }
+  },
+  {
+   "level": 40,
+   "world": "Crosswise Castle",
+   "world_no": 6,
+   "title": "48 × 52 in 3 Seconds! Difference of Squares Trick",
+   "lesson": "Difference of squares for numbers with gap of 4 (48 x 52)",
+   "video": "v/mq-level-40.mp4",
+   "seconds": 46,
+   "mission": {
+    "label": "68 × 72",
+    "kind": "number",
+    "hash": "bee26631225be3fd760fea18d279df18c21be5e63514d15ad0df33da12311333"
+   }
+  },
+  {
+   "level": 45,
+   "world": "Digit Sum Valley",
+   "world_no": 7,
+   "title": "Check Divisibility by 9 in Seconds!",
+   "lesson": "Check whether a large number is divisible by 9 (6849)",
+   "video": "v/mq-level-45.mp4",
+   "seconds": 52,
+   "mission": {
+    "label": "Is 5373 divisible by 9?",
+    "kind": "yesno",
+    "hash": "841bfb24ff445de6c20ec74ae457a4a7c997acf8e450015dc53b1a58c9d77761"
+   }
+  }
+ ]
+}
