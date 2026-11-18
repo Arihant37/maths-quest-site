@@ -39,6 +39,7 @@
 </head>
 <body>
 <main id="app"></main>
+<script src="practice.js"></script>
 <script>
 const KEY = "maths-quest-v1";
 let data = null;
@@ -58,13 +59,15 @@ function home() {
     <label class="sw"><input type="checkbox" id="lock" ${state.lock ? "checked" : ""} style="flex:none;width:auto"> Game mode: unlock levels one by one</label></div>`));
   app.append($(`<div><div class="bar"><i style="width:${(solved / data.total) * 100}%"></i></div><p class="sub">${solved} missions solved &middot; ${data.levels.length} levels open &middot; ${data.total - data.levels.length} more coming</p></div>`));
   app.querySelector("#lock").onchange = (e) => { state.lock = e.target.checked; save(); home(); };
+  app.append($(`<div class="row" style="margin:12px 0 0"><a class="btn" href="#PM">Mixed practice: 10 sums from all tricks</a></div>`));
   const worlds = [...new Set(data.levels.map((l) => l.world_no))];
   for (const w of worlds) {
     const ls = data.levels.filter((l) => l.world_no === w);
     app.append($(`<h2>World ${w}: ${esc(ls[0].world)}</h2>`));
     const g = $(`<div class="grid"></div>`);
     for (const l of ls) {
-      const c = $(`<button class="card ${state.done[l.level] ? "done" : ""} ${unlocked(l.level) ? "" : "locked"}"><b>${l.level}</b><span>${esc(l.title)}</span></button>`);
+      const star = (state.practice || {})[l.level] === PRACTICE_N ? " &#9733;" : "";
+      const c = $(`<button class="card ${state.done[l.level] ? "done" : ""} ${unlocked(l.level) ? "" : "locked"}"><b>${l.level}${star}</b><span>${esc(l.title)}</span></button>`);
       c.onclick = () => unlocked(l.level) && (location.hash = "#L" + l.level);
       g.append(c);
     }
@@ -101,14 +104,73 @@ function level(n) {
   if (m && m.kind === "number") { box.querySelector("#chk").onclick = () => check(box.querySelector("#ans").value); box.querySelector("#ans").onkeydown = (e) => e.key === "Enter" && check(e.target.value); }
   if (m && m.kind === "yesno") box.querySelectorAll("button[data-a]").forEach((b) => (b.onclick = () => check(b.dataset.a)));
   if (!m) { const d = $(`<button class="btn alt">Mark as done</button>`); d.onclick = () => { state.done[l.level] = true; save(); say(true, "Marked as done."); }; box.append(d); }
+  if (GEN[l.level]) {
+    const best = (state.practice || {})[l.level];
+    app.append($(`<div class="panel"><b>Practice this trick</b><p class="sub" style="margin:6px 0 10px">${PRACTICE_N} new sums every time.${best != null ? " Your best: " + best + " / " + PRACTICE_N + "." : ""}</p><a class="btn" href="#P${l.level}">Start practice</a></div>`));
+  }
   const prev = data.levels.find((x) => x.level === n - 1), next = data.levels.find((x) => x.level === n + 1);
   app.append($(`<div class="nav">${prev ? `<a class="btn alt" href="#L${prev.level}">&larr; Level ${prev.level}</a>` : "<span></span>"}${next ? `<a class="btn" href="#L${next.level}">Level ${next.level} &rarr;</a>` : ""}</div>`));
   window.scrollTo(0, 0);
 }
 
+const PRACTICE_N = 5;
+
+// ids: the levels to draw sums from (one level = that trick; several = mixed round). total: number of sums.
+function practice(ids, total) {
+  const app = document.getElementById("app");
+  const single = ids.length === 1;
+  let i = 0, score = 0, cur = null;
+  const finish = () => {
+    if (single) { state.practice = state.practice || {}; state.practice[ids[0]] = Math.max(state.practice[ids[0]] || 0, score); save(); }
+    const verdict = score === total ? "Perfect! " : score >= total * 0.7 ? "Great work! " : "Keep going, ";
+    app.innerHTML = "";
+    app.append($(`<p><a href="${single ? "#L" + ids[0] : "#"}">&larr; Back</a></p>`));
+    app.append($(`<h1>${verdict}${score} / ${total}</h1>`));
+    app.append($(`<p class="sub">${score === total ? "You nailed it." : "Watch the video again, then try a new round."}</p>`));
+    const again = $(`<button class="go">New round</button>`);
+    again.onclick = () => practice(ids, total);
+    app.append(again);
+  };
+  const draw = () => {
+    app.innerHTML = "";
+    app.append($(`<p><a href="${single ? "#L" + ids[0] : "#"}">&larr; Back</a></p>`));
+    app.append($(`<h1>Practice</h1>`));
+    app.append($(`<p class="sub">Sum ${i + 1} of ${total} &middot; score ${score}${single ? "" : " &middot; trick from level " + cur.level}</p>`));
+    const box = $(`<div class="panel"><p style="font-size:30px;margin:6px 0 12px;color:var(--yellow)">${esc(cur.q)}${cur.kind === "number" ? " = ?" : ""}</p>
+      ${cur.kind === "yesno" ? `<div class="row"><button class="go" data-a="yes">Yes</button><button class="go" data-a="no">No</button></div>`
+        : `<div class="row"><input id="ans" inputmode="numeric" placeholder="Your answer" autocomplete="off"><button class="go" id="chk">Check</button></div>`}
+      <div class="msg" id="msg"></div></div>`);
+    app.append(box);
+    let answered = false;
+    const msg = box.querySelector("#msg");
+    const submit = (raw) => {
+      const v = String(raw).trim().toLowerCase().replace(/[ ,]/g, "");
+      if (answered || !v) return;
+      answered = true;
+      const ok = cur.kind === "yesno" ? v === cur.a : Number(v) === cur.a;
+      if (ok) score++;
+      msg.innerHTML = ok ? `<span class="ok">Correct!</span>` : `<span class="no">Not quite. The answer is ${cur.a}. <a href="#L${cur.level}">Watch level ${cur.level}</a> to see the trick.</span>`;
+      const nx = $(`<button class="btn" style="margin-top:10px">${i + 1 >= total ? "See my score" : "Next sum"}</button>`);
+      nx.onclick = () => { i++; i >= total ? finish() : pick(); };
+      box.append(nx);
+    };
+    const chk = box.querySelector("#chk"), ans = box.querySelector("#ans");
+    if (chk) { chk.onclick = () => submit(ans.value); ans.onkeydown = (e) => e.key === "Enter" && submit(ans.value); ans.focus(); }
+    box.querySelectorAll("button[data-a]").forEach((b) => (b.onclick = () => submit(b.dataset.a)));
+  };
+  const pick = () => { const lv = ids[Math.floor(Math.random() * ids.length)]; cur = Object.assign({ level: lv }, GEN[lv]()); draw(); };
+  pick();
+}
+
 function route() {
-  const m = location.hash.match(/^#L(\d+)$/);
-  m ? level(+m[1]) : home();
+  const h = location.hash;
+  let m;
+  if (h === "#PM") {
+    const ids = data.levels.map((l) => l.level).filter((n) => GEN[n]);
+    ids.length ? practice(ids, 10) : (location.hash = "");
+  } else if ((m = h.match(/^#P(\d+)$/)) && GEN[+m[1]]) practice([+m[1]], PRACTICE_N);
+  else if ((m = h.match(/^#L(\d+)$/))) level(+m[1]);
+  else home();
 }
 fetch("levels.json").then((r) => r.json()).then((d) => { data = d; route(); window.onhashchange = route; })
   .catch(() => (document.getElementById("app").textContent = "Could not load the levels. Please refresh."));
